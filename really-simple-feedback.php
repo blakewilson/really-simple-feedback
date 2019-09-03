@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Really Simple Feedback
-Plugin URI: https://wordpress.org/plugins/really-simple-feedback
+Plugin URI: https://pushlabs.co
 Description: A really simple way to get feedback from your users.
 Version: 1.0.0
 Author: Push Labs

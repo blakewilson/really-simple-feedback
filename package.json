@@ -1,14 +1,13 @@
 {
-  "name": "feedback",
+  "name": "really-simple-feedback",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A really simple way to get feedback from your users.",
+  "main": "really-simple-feedback.php",
   "scripts": {
     "format": "prettier --write src/**/*.js",
     "format-php": "prettier --write really-simple-feedback.php"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Push Labs",
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
