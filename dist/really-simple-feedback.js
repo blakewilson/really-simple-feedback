@@ -122,6 +122,9 @@ headerClose.addEventListener('click', function (e) {
     showFeedbackButton();
   }, 250);
 });
+var generalError = document.createElement('div');
+generalError.classList.add('rsf-error');
+widget.appendChild(generalError);
 var form = document.createElement('form');
 form.id = 'rsf-form';
 form.name = 'rsf-form';
@@ -167,6 +170,9 @@ var textarea = document.createElement('textarea');
 textarea.id = 'rsf-comment-input';
 textarea.name = 'rsf-comments';
 commentSection.appendChild(textarea);
+var commentSectionError = document.createElement('div');
+commentSectionError.classList.add('rsf-error');
+commentSection.appendChild(commentSectionError);
 var submitSection = document.createElement('div');
 submitSection.classList.add('rsf-send');
 form.appendChild(submitSection);
@@ -204,20 +210,18 @@ document.addEventListener('input', function (e) {
   }
 
   e.target.style.borderColor = '#000';
+  commentSectionError.textContent = '';
 });
 document.addEventListener('submit', function (e) {
   if (e.target.id !== 'rsf-form') {
     return null;
   }
 
-  e.preventDefault();
+  e.preventDefault(); // Clear prior errors 
+
+  generalError.textContent = '';
+  commentSectionError.textContent = '';
   var comment = document.getElementById('rsf-comment-input');
-
-  if (!comment.value) {
-    textarea.style.borderColor = 'red';
-    return null;
-  }
-
   var rating;
 
   if (unsatisfiedInput.checked) {
@@ -242,6 +246,20 @@ document.addEventListener('submit', function (e) {
   }).then(function (res) {
     return res.json();
   }).then(function (res) {
+    if (res.code) {
+      switch (res.code) {
+        case 'no_comment':
+          textarea.style.borderColor = '#F44336';
+          commentSectionError.textContent = rsf_localized.comment_section_error_message;
+          break;
+
+        default:
+          generalError.textContent = rsf_localized.general_error_message;
+      }
+
+      return;
+    }
+
     hideWidget();
     setTimeout(function () {
       showThankYou();
@@ -254,7 +272,8 @@ document.addEventListener('submit', function (e) {
       }, 2500);
     }, 250);
   })["catch"](function (err) {
-    return console.log(err);
+    console.log(err);
+    generalError.textContent = rsf_localized.general_error_message;
   });
 });
 
@@ -308,6 +327,9 @@ function showCommentSection() {
   widget.style.transition = 'max-height 0.25s ease-in-out';
   widget.style.maxHeight = "".concat(widget.scrollHeight, "px");
   commentSection.style.opacity = 1;
+  setTimeout(function () {
+    widget.style.maxHeight = 'none';
+  }, 250);
 }
 
 function showSubmitSection() {
@@ -318,6 +340,9 @@ function showSubmitSection() {
   widget.style.transition = 'max-height 0.25s ease-in-out';
   widget.style.maxHeight = "".concat(widget.scrollHeight, "px");
   submitSection.style.opacity = 1;
+  setTimeout(function () {
+    widget.style.maxHeight = 'none';
+  }, 250);
 }
 
 function resetWidget() {
@@ -328,7 +353,7 @@ function resetWidget() {
   unsatisfiedInput.checked = false;
   satisfiedInput.checked = false;
   widget.style.maxHeight = 'none';
-  textarea.value = "";
+  textarea.value = '';
 }
 
 widget.style.bottom = "-".concat(widget.offsetHeight, "px");

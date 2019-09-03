@@ -60,6 +60,10 @@ headerClose.addEventListener('click', e => {
   }, 250)
 })
 
+const generalError = document.createElement('div')
+generalError.classList.add('rsf-error')
+widget.appendChild(generalError)
+
 const form = document.createElement('form')
 form.id = 'rsf-form'
 form.name = 'rsf-form'
@@ -142,6 +146,10 @@ textarea.id = 'rsf-comment-input'
 textarea.name = 'rsf-comments'
 commentSection.appendChild(textarea)
 
+const commentSectionError = document.createElement('div')
+commentSectionError.classList.add('rsf-error')
+commentSection.appendChild(commentSectionError)
+
 const submitSection = document.createElement('div')
 submitSection.classList.add('rsf-send')
 form.appendChild(submitSection)
@@ -191,6 +199,7 @@ document.addEventListener('input', e => {
   }
 
   e.target.style.borderColor = '#000'
+  commentSectionError.textContent = ''
 })
 
 document.addEventListener('submit', e => {
@@ -200,12 +209,12 @@ document.addEventListener('submit', e => {
 
   e.preventDefault()
 
-  const comment = document.getElementById('rsf-comment-input')
+  // Clear prior errors 
+  generalError.textContent = ''
+  commentSectionError.textContent = ''
+  
 
-  if (!comment.value) {
-    textarea.style.borderColor = 'red'
-    return null
-  }
+  const comment = document.getElementById('rsf-comment-input')
 
   let rating
   if (unsatisfiedInput.checked) {
@@ -234,6 +243,17 @@ document.addEventListener('submit', e => {
   )
     .then(res => res.json())
     .then(res => {
+      if(res.code) {
+        switch (res.code) {
+          case 'no_comment':
+            textarea.style.borderColor = '#F44336'
+            commentSectionError.textContent = rsf_localized.comment_section_error_message
+            break;
+          default:
+            generalError.textContent = rsf_localized.general_error_message
+        }
+        return
+      }
       hideWidget()
 
       setTimeout(() => {
@@ -249,7 +269,10 @@ document.addEventListener('submit', e => {
         }, 2500)
       }, 250)
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      generalError.textContent = rsf_localized.general_error_message
+    })
 })
 
 function showWidget() {
@@ -308,6 +331,10 @@ function showCommentSection() {
   widget.style.maxHeight = `${widget.scrollHeight}px`
 
   commentSection.style.opacity = 1
+
+  setTimeout(() => {
+    widget.style.maxHeight = 'none'
+  }, 250);
 }
 
 function showSubmitSection() {
@@ -321,6 +348,10 @@ function showSubmitSection() {
   widget.style.maxHeight = `${widget.scrollHeight}px`
 
   submitSection.style.opacity = 1
+
+  setTimeout(() => {
+    widget.style.maxHeight = 'none'
+  }, 250);
 }
 
 function resetWidget() {

@@ -196,3 +196,8 @@
 .rsf-submit-button:active {
     background-color: #000;
 }
+
+.rsf-error:not(:empty) {
+    color: #F44336;
+    padding: 0.5rem;
+}

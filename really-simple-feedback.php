@@ -64,6 +64,14 @@ function enqueue_scripts() {
     'satisfied_placeholder_text' => __(
       'What do you like the most?',
       'really-simple-feedback'
+    ),
+    'comment_section_error_message' => __(
+      'Your feedback is required.',
+      'really-simple-feedback'
+    ),
+    'general_error_message' => __(
+      'Something went wrong. Try again in a few minutes.',
+      'really-simple-feedback'
     )
   ));
 }
@@ -182,9 +190,10 @@ function create_feedback_endpoint($request) {
 
   // Get the comment.
   $comment = $request['comment'];
+  $comment = sanitize_text_field($request['comment']);
 
   // If the comment does not exist, quit.
-  if (is_null($comment)) {
+  if (empty($comment)) {
     return new \WP_Error(
       'no_comment',
       __('There was no comment provided.', 'really-simple-feedback'),
@@ -448,7 +457,7 @@ function register_actions($actions, $post) {
   }
 
   // Remove the edit and quick edit actions.
-  unset($actions['edit']);
+  // unset($actions['edit']);
   unset($actions['inline hide-if-no-js']);
 
   // Get the marked as read post meta value
