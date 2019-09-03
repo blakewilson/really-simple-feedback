@@ -53,11 +53,11 @@ headerClose.innerHTML = `
 header.appendChild(headerClose)
 
 headerClose.addEventListener('click', e => {
-    hideWidget()
+  hideWidget()
 
-    setTimeout(() => {
-        showFeedbackButton()
-    }, 250);
+  setTimeout(() => {
+    showFeedbackButton()
+  }, 250)
 })
 
 const form = document.createElement('form')
@@ -137,7 +137,6 @@ const commentSection = document.createElement('div')
 commentSection.classList.add('rsf-comments')
 form.appendChild(commentSection)
 
-
 const textarea = document.createElement('textarea')
 textarea.id = 'rsf-comment-input'
 textarea.name = 'rsf-comments'
@@ -160,180 +159,179 @@ submit.innerHTML = `
 submitSection.appendChild(submit)
 
 feedbackButton.addEventListener('click', e => {
-    hideFeedbackButton()
+  hideFeedbackButton()
 
-    setTimeout(() => {
-        showWidget()
-    }, 250);
+  setTimeout(() => {
+    showWidget()
+  }, 250)
 })
 
 document.addEventListener('click', e => {
-    if (e.target.name !== 'satisfactionRating') {
-        return null
-    }
+  if (e.target.name !== 'satisfactionRating') {
+    return null
+  }
 
-    function testing() {
+  function testing() {}
 
-    }
+  if (e.target.value === 'unsatisfied') {
+    textarea.placeholder = rsf_localized.unsatisfied_placeholder_text
+  }
 
-    if ( e.target.value === 'unsatisfied' ) {
-        textarea.placeholder = rsf_localized.unsatisfied_placeholder_text
-    }
+  if (e.target.value === 'satisfied') {
+    textarea.placeholder = rsf_localized.satisfied_placeholder_text
+  }
 
-    if ( e.target.value === 'satisfied' ) {
-        textarea.placeholder = rsf_localized.satisfied_placeholder_text
-    }
-
-    showCommentSection()
-    showSubmitSection()
+  showCommentSection()
+  showSubmitSection()
 })
 
 document.addEventListener('input', e => {
-    if ( e.target.id !== 'rsf-comment-input' ) {
-        return null
-    }
+  if (e.target.id !== 'rsf-comment-input') {
+    return null
+  }
 
-    e.target.style.borderColor = '#000'
+  e.target.style.borderColor = '#000'
 })
 
 document.addEventListener('submit', e => {
-    if (e.target.id !== 'rsf-form') {
-        return null
+  if (e.target.id !== 'rsf-form') {
+    return null
+  }
+
+  e.preventDefault()
+
+  const comment = document.getElementById('rsf-comment-input')
+
+  if (!comment.value) {
+    textarea.style.borderColor = 'red'
+    return null
+  }
+
+  let rating
+  if (unsatisfiedInput.checked) {
+    rating = 'unsatisfied'
+  }
+
+  if (satisfiedInput.checked) {
+    rating = 'satisfied'
+  }
+
+  const data = {
+    rating: rating,
+    comment: comment.value,
+    userAgent: navigator.userAgent,
+  }
+
+  fetch(
+    `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`,
+    {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
+  )
+    .then(res => res.json())
+    .then(res => {
+      hideWidget()
 
-    e.preventDefault()
+      setTimeout(() => {
+        showThankYou()
+        resetWidget()
 
-    const comment = document.getElementById('rsf-comment-input')
+        setTimeout(() => {
+          hideThankYou()
 
-    if(!comment.value) {
-        textarea.style.borderColor = 'red'
-        return null
-    }
-
-    let rating
-    if (unsatisfiedInput.checked) {
-        rating = 'unsatisfied'
-    }
-
-    if (satisfiedInput.checked) {
-        rating = 'satisfied'
-    }
-    
-
-    const data = {
-        rating: rating,
-        comment: comment.value,
-        userAgent: navigator.userAgent
-    }
-
-    fetch(`${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+          setTimeout(() => {
+            showFeedbackButton()
+          }, 250)
+        }, 2500)
+      }, 250)
     })
-        .then(res => res.json())
-        .then(res => {
-            hideWidget()
-
-            setTimeout(() => {
-                showThankYou()
-                resetWidget()
-
-                setTimeout(() => {
-                    hideThankYou()
-
-                    setTimeout(() => {
-                        showFeedbackButton()
-                    }, 250);
-                }, 2500);
-            }, 250);
-        })
-        .catch(err => console.log(err))
-
+    .catch(err => console.log(err))
 })
 
 function showWidget() {
-    widget.style.visibility = 'visible'
-    widget.style.transition = 'bottom 0.25s ease-in-out'
-    widget.style.bottom = '1rem'
+  widget.style.visibility = 'visible'
+  widget.style.transition = 'bottom 0.25s ease-in-out'
+  widget.style.bottom = '1rem'
 }
 
 function hideWidget() {
-    widget.style.transition = 'bottom 0.25s ease-in-out'
-    widget.style.bottom = `-${widget.offsetHeight}px`
-    
-    setTimeout(() => {
-        widget.style.visibility = 'hidden'
-    }, 250);
+  widget.style.transition = 'bottom 0.25s ease-in-out'
+  widget.style.bottom = `-${widget.offsetHeight}px`
+
+  setTimeout(() => {
+    widget.style.visibility = 'hidden'
+  }, 250)
 }
 
 function showThankYou() {
-    thankYou.style.visibility = 'visible'
-    thankYou.style.transition = 'bottom 0.25s ease-in-out'
-    thankYou.style.bottom = '1rem'
+  thankYou.style.visibility = 'visible'
+  thankYou.style.transition = 'bottom 0.25s ease-in-out'
+  thankYou.style.bottom = '1rem'
 }
 
 function hideThankYou() {
-    thankYou.style.transition = 'bottom 0.25s ease-in-out'
-    thankYou.style.bottom = `-${thankYou.offsetHeight}px`
-    
-    setTimeout(() => {
-        thankYou.style.visibility = 'hidden'
-    }, 250);
+  thankYou.style.transition = 'bottom 0.25s ease-in-out'
+  thankYou.style.bottom = `-${thankYou.offsetHeight}px`
+
+  setTimeout(() => {
+    thankYou.style.visibility = 'hidden'
+  }, 250)
 }
 
 function showFeedbackButton() {
-    feedbackButton.style.visibility = 'visible'
-    feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
-    feedbackButton.style.bottom = '1rem'
+  feedbackButton.style.visibility = 'visible'
+  feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
+  feedbackButton.style.bottom = '1rem'
 }
 
 function hideFeedbackButton() {
-    feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
-    feedbackButton.style.bottom = `-${feedbackButton.offsetHeight}px`
-    
-    setTimeout(() => {
-        feedbackButton.style.visibility = 'hidden'
-    }, 250);
+  feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
+  feedbackButton.style.bottom = `-${feedbackButton.offsetHeight}px`
+
+  setTimeout(() => {
+    feedbackButton.style.visibility = 'hidden'
+  }, 250)
 }
 
 function showCommentSection() {
-    widget.style.maxHeight = `${widget.scrollHeight}px`
+  widget.style.maxHeight = `${widget.scrollHeight}px`
 
-    commentSection.style.opacity = 0
-    commentSection.style.display = 'block'
-    commentSection.style.transition = 'opacity 0.25s ease-in-out'
+  commentSection.style.opacity = 0
+  commentSection.style.display = 'block'
+  commentSection.style.transition = 'opacity 0.25s ease-in-out'
 
-    widget.style.transition = 'max-height 0.25s ease-in-out'
-    widget.style.maxHeight = `${widget.scrollHeight}px`
+  widget.style.transition = 'max-height 0.25s ease-in-out'
+  widget.style.maxHeight = `${widget.scrollHeight}px`
 
-    commentSection.style.opacity = 1
+  commentSection.style.opacity = 1
 }
 
 function showSubmitSection() {
-    widget.style.maxHeight = `${widget.scrollHeight}px`
+  widget.style.maxHeight = `${widget.scrollHeight}px`
 
-    submitSection.style.opacity = 0
-    submitSection.style.display = 'block'
-    submitSection.style.transition = 'opacity 0.25s ease-in-out'
+  submitSection.style.opacity = 0
+  submitSection.style.display = 'block'
+  submitSection.style.transition = 'opacity 0.25s ease-in-out'
 
-    widget.style.transition = 'max-height 0.25s ease-in-out'
-    widget.style.maxHeight = `${widget.scrollHeight}px`
+  widget.style.transition = 'max-height 0.25s ease-in-out'
+  widget.style.maxHeight = `${widget.scrollHeight}px`
 
-    submitSection.style.opacity = 1
+  submitSection.style.opacity = 1
 }
 
 function resetWidget() {
-    commentSection.style.display = 'none'
-    submitSection.style.display = 'none'
-    commentSection.style.opacity = 0
-    submitSection.style.opacity = 0
-    unsatisfiedInput.checked = false
-    satisfiedInput.checked = false
-    widget.style.maxHeight = 'none'
-    textarea.value = ""
+  commentSection.style.display = 'none'
+  submitSection.style.display = 'none'
+  commentSection.style.opacity = 0
+  submitSection.style.opacity = 0
+  unsatisfiedInput.checked = false
+  satisfiedInput.checked = false
+  widget.style.maxHeight = 'none'
+  textarea.value = ''
 }
 
 widget.style.bottom = `-${widget.offsetHeight}px`

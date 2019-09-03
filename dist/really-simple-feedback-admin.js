@@ -9,6 +9,7 @@ document.addEventListener('click', e => {
     fetch(`${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_read/${postID}`, {
         method: 'POST',
         headers: {
+            'X-WP-Nonce': rsf_localized.nonce,
             'Content-Type': 'application/json'
         }
     })
@@ -34,6 +35,7 @@ document.addEventListener('click', e => {
     fetch(`${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_unread/${postID}`, {
         method: 'POST',
         headers: {
+            'X-WP-Nonce': rsf_localized.nonce,
             'Content-Type': 'applications/json'
         }
     })

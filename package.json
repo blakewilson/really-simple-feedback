@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write src/**/*.js",
+    "format-php": "prettier --write really-simple-feedback.php"
   },
   "author": "",
   "license": "ISC",
