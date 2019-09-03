@@ -5,7 +5,8 @@
   "main": "really-simple-feedback.php",
   "scripts": {
     "format": "prettier --write src/**/*.js",
-    "format-php": "prettier --write really-simple-feedback.php"
+    "format-php": "prettier --write really-simple-feedback.php",
+    "export-zip": "git archive -o really-simple-feedback.zip master"
   },
   "author": "Push Labs",
   "dependencies": {
@@ -14,7 +15,11 @@
     "@babel/preset-env": "^7.5.5",
     "@prettier/plugin-php": "^0.11.2",
     "babel": "^6.23.0",
-    "babel-loader": "^8.0.6",
-    "prettier": "^1.18.2"
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-sass": "^4.0.2",
+    "prettier": "^1.18.2",
+    "whatwg-fetch": "^3.0.0"
   }
 }

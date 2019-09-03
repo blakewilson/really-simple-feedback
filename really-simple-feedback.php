@@ -39,7 +39,7 @@ function enqueue_scripts() {
 
   wp_enqueue_style(
     'really-simple-feedback',
-    plugin_dir_url(__FILE__) . 'dist/style.css',
+    plugin_dir_url(__FILE__) . 'dist/really-simple-feedback.css',
     array(),
     '1.0.0'
   );
