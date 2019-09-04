@@ -10,11 +10,6 @@
     "export-zip": "git archive -o really-simple-feedback.zip master"
   },
   "author": "Push Labs",
-  "pre-commit": [
-    "format-js",
-    "format-php",
-    "build"
-  ],
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
