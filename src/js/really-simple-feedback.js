@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
 
-  const feedbackButton = document.createElement('div')
-  feedbackButton.id = 'rsf-open-pane'
-  feedbackButton.innerHTML = `
+const feedbackButton = document.createElement('div')
+feedbackButton.id = 'rsf-open-pane'
+feedbackButton.innerHTML = `
     <svg width="121px" height="121px" viewBox="0 0 121 121" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Satisfied">
@@ -17,15 +17,15 @@ import 'whatwg-fetch'
     </svg>
     <span>${rsf_localized.feedback_button_text}</span>
 `
-  document.body.appendChild(feedbackButton)
+document.body.appendChild(feedbackButton)
 
-  const widget = document.createElement('div')
-  widget.id = 'rsf-widget'
-  document.body.appendChild(widget)
+const widget = document.createElement('div')
+widget.id = 'rsf-widget'
+document.body.appendChild(widget)
 
-  const thankYou = document.createElement('div')
-  thankYou.classList.add('rsf-thank-you')
-  thankYou.innerHTML = `
+const thankYou = document.createElement('div')
+thankYou.classList.add('rsf-thank-you')
+thankYou.innerHTML = `
     <svg width="165px" height="165px" viewBox="0 0 165 165" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Thank-You-icon">
@@ -36,65 +36,65 @@ import 'whatwg-fetch'
     </svg>
     <span>${rsf_localized.thank_you_message}</span>
 `
-  document.body.appendChild(thankYou)
-  thankYou.style.bottom = `-${thankYou.offsetHeight}px`
+document.body.appendChild(thankYou)
+thankYou.style.bottom = `-${thankYou.offsetHeight}px`
 
-  const header = document.createElement('header')
-  header.classList.add('rsf-header')
-  widget.appendChild(header)
+const header = document.createElement('header')
+header.classList.add('rsf-header')
+widget.appendChild(header)
 
-  const headerTitle = document.createElement('span')
-  headerTitle.classList.add('rsf-widget-title')
-  headerTitle.textContent = rsf_localized.widget_header_text
-  header.appendChild(headerTitle)
+const headerTitle = document.createElement('span')
+headerTitle.classList.add('rsf-widget-title')
+headerTitle.textContent = rsf_localized.widget_header_text
+header.appendChild(headerTitle)
 
-  const headerClose = document.createElement('span')
-  headerClose.innerHTML = `
+const headerClose = document.createElement('span')
+headerClose.innerHTML = `
     <svg id="rsf-close" width="16" height="16" viewBox="0 0 14 14"><path style="fill: #fff;" d="M12 3.41L10.59 2 7 5.59 3.41 2 2 3.41 5.59 7 2 10.59 3.41 12 7 8.41 10.59 12 12 10.59 8.41 7z"></path></svg>
 `
-  header.appendChild(headerClose)
+header.appendChild(headerClose)
 
-  headerClose.addEventListener('click', e => {
-    hideWidget()
+headerClose.addEventListener('click', e => {
+  hideWidget()
 
-    setTimeout(() => {
-      showFeedbackButton()
-    }, 250)
-  })
+  setTimeout(() => {
+    showFeedbackButton()
+  }, 250)
+})
 
-  const generalError = document.createElement('div')
-  generalError.classList.add('rsf-error')
-  widget.appendChild(generalError)
+const generalError = document.createElement('div')
+generalError.classList.add('rsf-error')
+widget.appendChild(generalError)
 
-  const form = document.createElement('form')
-  form.id = 'rsf-form'
-  form.name = 'rsf-form'
-  widget.appendChild(form)
+const form = document.createElement('form')
+form.id = 'rsf-form'
+form.name = 'rsf-form'
+widget.appendChild(form)
 
-  const satisfactionMessage = document.createElement('p')
-  satisfactionMessage.classList.add('rsf-satisfaction-message')
-  satisfactionMessage.textContent = rsf_localized.satisfaction_message
-  form.appendChild(satisfactionMessage)
+const satisfactionMessage = document.createElement('p')
+satisfactionMessage.classList.add('rsf-satisfaction-message')
+satisfactionMessage.textContent = rsf_localized.satisfaction_message
+form.appendChild(satisfactionMessage)
 
-  const satisfactionSection = document.createElement('div')
-  satisfactionSection.classList.add('rsf-satisfaction')
-  form.appendChild(satisfactionSection)
+const satisfactionSection = document.createElement('div')
+satisfactionSection.classList.add('rsf-satisfaction')
+form.appendChild(satisfactionSection)
 
-  const unsatisfiedOption = document.createElement('label')
-  unsatisfiedOption.classList.add('rsf-unsatisfied-option')
-  unsatisfiedOption.style.marginRight = '1rem'
-  satisfactionSection.appendChild(unsatisfiedOption)
+const unsatisfiedOption = document.createElement('label')
+unsatisfiedOption.classList.add('rsf-unsatisfied-option')
+unsatisfiedOption.style.marginRight = '1rem'
+satisfactionSection.appendChild(unsatisfiedOption)
 
-  const unsatisfiedInput = document.createElement('input')
-  unsatisfiedInput.type = 'radio'
-  unsatisfiedInput.id = 'rsf-unsatisfied-option'
-  unsatisfiedInput.name = 'satisfactionRating'
-  unsatisfiedInput.value = 'unsatisfied'
-  unsatisfiedOption.appendChild(unsatisfiedInput)
+const unsatisfiedInput = document.createElement('input')
+unsatisfiedInput.type = 'radio'
+unsatisfiedInput.id = 'rsf-unsatisfied-option'
+unsatisfiedInput.name = 'satisfactionRating'
+unsatisfiedInput.value = 'unsatisfied'
+unsatisfiedOption.appendChild(unsatisfiedInput)
 
-  const unsatisfiedImage = document.createElement('span')
-  unsatisfiedImage.classList.add('rsf-svg-holder')
-  unsatisfiedImage.innerHTML = `
+const unsatisfiedImage = document.createElement('span')
+unsatisfiedImage.classList.add('rsf-svg-holder')
+unsatisfiedImage.innerHTML = `
     <svg width="121px" height="121px" viewBox="0 0 121 121" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Unsatisfied">
@@ -108,22 +108,22 @@ import 'whatwg-fetch'
         </g>
     </svg>
 `
-  unsatisfiedOption.append(unsatisfiedImage)
+unsatisfiedOption.append(unsatisfiedImage)
 
-  const satisfiedOption = document.createElement('label')
-  satisfiedOption.classList.add('rsf-satisfied-option')
-  satisfactionSection.appendChild(satisfiedOption)
+const satisfiedOption = document.createElement('label')
+satisfiedOption.classList.add('rsf-satisfied-option')
+satisfactionSection.appendChild(satisfiedOption)
 
-  const satisfiedInput = document.createElement('input')
-  satisfiedInput.type = 'radio'
-  satisfiedInput.id = 'rsf-satisfied-option'
-  satisfiedInput.name = 'satisfactionRating'
-  satisfiedInput.value = 'satisfied'
-  satisfiedOption.appendChild(satisfiedInput)
+const satisfiedInput = document.createElement('input')
+satisfiedInput.type = 'radio'
+satisfiedInput.id = 'rsf-satisfied-option'
+satisfiedInput.name = 'satisfactionRating'
+satisfiedInput.value = 'satisfied'
+satisfiedOption.appendChild(satisfiedInput)
 
-  const satisfiedImage = document.createElement('span')
-  satisfiedImage.classList.add('rsf-svg-holder')
-  satisfiedImage.innerHTML = `
+const satisfiedImage = document.createElement('span')
+satisfiedImage.classList.add('rsf-svg-holder')
+satisfiedImage.innerHTML = `
     <svg width="121px" height="121px" viewBox="0 0 121 121" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Satisfied">
@@ -137,28 +137,28 @@ import 'whatwg-fetch'
         </g>
     </svg>
 `
-  satisfiedOption.appendChild(satisfiedImage)
+satisfiedOption.appendChild(satisfiedImage)
 
-  const commentSection = document.createElement('div')
-  commentSection.classList.add('rsf-comments')
-  form.appendChild(commentSection)
+const commentSection = document.createElement('div')
+commentSection.classList.add('rsf-comments')
+form.appendChild(commentSection)
 
-  const textarea = document.createElement('textarea')
-  textarea.id = 'rsf-comment-input'
-  textarea.name = 'rsf-comments'
-  commentSection.appendChild(textarea)
+const textarea = document.createElement('textarea')
+textarea.id = 'rsf-comment-input'
+textarea.name = 'rsf-comments'
+commentSection.appendChild(textarea)
 
-  const commentSectionError = document.createElement('div')
-  commentSectionError.classList.add('rsf-error')
-  commentSection.appendChild(commentSectionError)
+const commentSectionError = document.createElement('div')
+commentSectionError.classList.add('rsf-error')
+commentSection.appendChild(commentSectionError)
 
-  const submitSection = document.createElement('div')
-  submitSection.classList.add('rsf-send')
-  form.appendChild(submitSection)
+const submitSection = document.createElement('div')
+submitSection.classList.add('rsf-send')
+form.appendChild(submitSection)
 
-  const submit = document.createElement('button')
-  submit.classList.add('rsf-submit-button')
-  submit.innerHTML = `
+const submit = document.createElement('button')
+submit.classList.add('rsf-submit-button')
+submit.innerHTML = `
 <span>${rsf_localized.submit_text}</span>
 <svg width="1rem" height="1rem" style="margin-left: 0.5rem" viewBox="0 0 35 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -166,207 +166,206 @@ import 'whatwg-fetch'
     </g>
 </svg>
 `
-  submitSection.appendChild(submit)
+submitSection.appendChild(submit)
 
-  feedbackButton.addEventListener('click', e => {
-    hideFeedbackButton()
+feedbackButton.addEventListener('click', e => {
+  hideFeedbackButton()
 
-    setTimeout(() => {
-      showWidget()
-    }, 250)
-  })
+  setTimeout(() => {
+    showWidget()
+  }, 250)
+})
 
-  document.addEventListener('click', e => {
-    if (e.target.name !== 'satisfactionRating') {
-      return null
-    }
+document.addEventListener('click', e => {
+  if (e.target.name !== 'satisfactionRating') {
+    return null
+  }
 
-    function testing() {}
+  function testing() {}
 
-    if (e.target.value === 'unsatisfied') {
-      textarea.placeholder = rsf_localized.unsatisfied_placeholder_text
-    }
+  if (e.target.value === 'unsatisfied') {
+    textarea.placeholder = rsf_localized.unsatisfied_placeholder_text
+  }
 
-    if (e.target.value === 'satisfied') {
-      textarea.placeholder = rsf_localized.satisfied_placeholder_text
-    }
+  if (e.target.value === 'satisfied') {
+    textarea.placeholder = rsf_localized.satisfied_placeholder_text
+  }
 
-    showCommentSection()
-    showSubmitSection()
-  })
+  showCommentSection()
+  showSubmitSection()
+})
 
-  document.addEventListener('input', e => {
-    if (e.target.id !== 'rsf-comment-input') {
-      return null
-    }
+document.addEventListener('input', e => {
+  if (e.target.id !== 'rsf-comment-input') {
+    return null
+  }
 
-    e.target.style.borderColor = '#000'
-    commentSectionError.textContent = ''
-  })
+  e.target.style.borderColor = '#000'
+  commentSectionError.textContent = ''
+})
 
-  document.addEventListener('submit', e => {
-    if (e.target.id !== 'rsf-form') {
-      return null
-    }
+document.addEventListener('submit', e => {
+  if (e.target.id !== 'rsf-form') {
+    return null
+  }
 
-    e.preventDefault()
+  e.preventDefault()
 
-    // Clear prior errors
-    generalError.textContent = ''
-    commentSectionError.textContent = ''
+  // Clear prior errors
+  generalError.textContent = ''
+  commentSectionError.textContent = ''
 
-    const comment = document.getElementById('rsf-comment-input')
+  const comment = document.getElementById('rsf-comment-input')
 
-    let rating
-    if (unsatisfiedInput.checked) {
-      rating = 'unsatisfied'
-    }
+  let rating
+  if (unsatisfiedInput.checked) {
+    rating = 'unsatisfied'
+  }
 
-    if (satisfiedInput.checked) {
-      rating = 'satisfied'
-    }
+  if (satisfiedInput.checked) {
+    rating = 'satisfied'
+  }
 
-    const data = {
-      rating: rating,
-      comment: comment.value,
-      userAgent: navigator.userAgent,
-    }
+  const data = {
+    rating: rating,
+    comment: comment.value,
+    userAgent: navigator.userAgent,
+  }
 
-    window
-      .fetch(
-        `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`,
-        {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+  window
+    .fetch(
+      `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => {
+      if (res.code) {
+        switch (res.code) {
+          case 'no_comment':
+            textarea.style.borderColor = '#F44336'
+            commentSectionError.textContent =
+              rsf_localized.comment_section_error_message
+            break
+          default:
+            generalError.textContent = rsf_localized.general_error_message
         }
-      )
-      .then(res => res.json())
-      .then(res => {
-        if (res.code) {
-          switch (res.code) {
-            case 'no_comment':
-              textarea.style.borderColor = '#F44336'
-              commentSectionError.textContent =
-                rsf_localized.comment_section_error_message
-              break
-            default:
-              generalError.textContent = rsf_localized.general_error_message
-          }
-          return
-        }
-        hideWidget()
+        return
+      }
+      hideWidget()
+
+      setTimeout(() => {
+        showThankYou()
+        resetWidget()
 
         setTimeout(() => {
-          showThankYou()
-          resetWidget()
+          hideThankYou()
 
           setTimeout(() => {
-            hideThankYou()
+            showFeedbackButton()
+          }, 250)
+        }, 2500)
+      }, 250)
+    })
+    .catch(err => {
+      console.log(err)
+      generalError.textContent = rsf_localized.general_error_message
+    })
+})
 
-            setTimeout(() => {
-              showFeedbackButton()
-            }, 250)
-          }, 2500)
-        }, 250)
-      })
-      .catch(err => {
-        console.log(err)
-        generalError.textContent = rsf_localized.general_error_message
-      })
-  })
+function showWidget() {
+  widget.style.visibility = 'visible'
+  widget.style.transition = 'bottom 0.25s ease-in-out'
+  widget.style.bottom = '1rem'
+}
 
-  function showWidget() {
-    widget.style.visibility = 'visible'
-    widget.style.transition = 'bottom 0.25s ease-in-out'
-    widget.style.bottom = '1rem'
-  }
-
-  function hideWidget() {
-    widget.style.transition = 'bottom 0.25s ease-in-out'
-    widget.style.bottom = `-${widget.offsetHeight}px`
-
-    setTimeout(() => {
-      widget.style.visibility = 'hidden'
-    }, 250)
-  }
-
-  function showThankYou() {
-    thankYou.style.visibility = 'visible'
-    thankYou.style.transition = 'bottom 0.25s ease-in-out'
-    thankYou.style.bottom = '1rem'
-  }
-
-  function hideThankYou() {
-    thankYou.style.transition = 'bottom 0.25s ease-in-out'
-    thankYou.style.bottom = `-${thankYou.offsetHeight}px`
-
-    setTimeout(() => {
-      thankYou.style.visibility = 'hidden'
-    }, 250)
-  }
-
-  function showFeedbackButton() {
-    feedbackButton.style.visibility = 'visible'
-    feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
-    feedbackButton.style.bottom = '1rem'
-  }
-
-  function hideFeedbackButton() {
-    feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
-    feedbackButton.style.bottom = `-${feedbackButton.offsetHeight}px`
-
-    setTimeout(() => {
-      feedbackButton.style.visibility = 'hidden'
-    }, 250)
-  }
-
-  function showCommentSection() {
-    widget.style.maxHeight = `${widget.scrollHeight}px`
-
-    commentSection.style.opacity = 0
-    commentSection.style.display = 'block'
-    commentSection.style.transition = 'opacity 0.25s ease-in-out'
-
-    widget.style.transition = 'max-height 0.25s ease-in-out'
-    widget.style.maxHeight = `${widget.scrollHeight}px`
-
-    commentSection.style.opacity = 1
-
-    setTimeout(() => {
-      widget.style.maxHeight = 'none'
-    }, 250)
-  }
-
-  function showSubmitSection() {
-    widget.style.maxHeight = `${widget.scrollHeight}px`
-
-    submitSection.style.opacity = 0
-    submitSection.style.display = 'block'
-    submitSection.style.transition = 'opacity 0.25s ease-in-out'
-
-    widget.style.transition = 'max-height 0.25s ease-in-out'
-    widget.style.maxHeight = `${widget.scrollHeight}px`
-
-    submitSection.style.opacity = 1
-
-    setTimeout(() => {
-      widget.style.maxHeight = 'none'
-    }, 250)
-  }
-
-  function resetWidget() {
-    commentSection.style.display = 'none'
-    submitSection.style.display = 'none'
-    commentSection.style.opacity = 0
-    submitSection.style.opacity = 0
-    unsatisfiedInput.checked = false
-    satisfiedInput.checked = false
-    widget.style.maxHeight = 'none'
-    textarea.value = ''
-  }
-
+function hideWidget() {
+  widget.style.transition = 'bottom 0.25s ease-in-out'
   widget.style.bottom = `-${widget.offsetHeight}px`
 
+  setTimeout(() => {
+    widget.style.visibility = 'hidden'
+  }, 250)
+}
+
+function showThankYou() {
+  thankYou.style.visibility = 'visible'
+  thankYou.style.transition = 'bottom 0.25s ease-in-out'
+  thankYou.style.bottom = '1rem'
+}
+
+function hideThankYou() {
+  thankYou.style.transition = 'bottom 0.25s ease-in-out'
+  thankYou.style.bottom = `-${thankYou.offsetHeight}px`
+
+  setTimeout(() => {
+    thankYou.style.visibility = 'hidden'
+  }, 250)
+}
+
+function showFeedbackButton() {
+  feedbackButton.style.visibility = 'visible'
+  feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
+  feedbackButton.style.bottom = '1rem'
+}
+
+function hideFeedbackButton() {
+  feedbackButton.style.transition = 'bottom 0.25s ease-in-out'
+  feedbackButton.style.bottom = `-${feedbackButton.offsetHeight}px`
+
+  setTimeout(() => {
+    feedbackButton.style.visibility = 'hidden'
+  }, 250)
+}
+
+function showCommentSection() {
+  widget.style.maxHeight = `${widget.scrollHeight}px`
+
+  commentSection.style.opacity = 0
+  commentSection.style.display = 'block'
+  commentSection.style.transition = 'opacity 0.25s ease-in-out'
+
+  widget.style.transition = 'max-height 0.25s ease-in-out'
+  widget.style.maxHeight = `${widget.scrollHeight}px`
+
+  commentSection.style.opacity = 1
+
+  setTimeout(() => {
+    widget.style.maxHeight = 'none'
+  }, 250)
+}
+
+function showSubmitSection() {
+  widget.style.maxHeight = `${widget.scrollHeight}px`
+
+  submitSection.style.opacity = 0
+  submitSection.style.display = 'block'
+  submitSection.style.transition = 'opacity 0.25s ease-in-out'
+
+  widget.style.transition = 'max-height 0.25s ease-in-out'
+  widget.style.maxHeight = `${widget.scrollHeight}px`
+
+  submitSection.style.opacity = 1
+
+  setTimeout(() => {
+    widget.style.maxHeight = 'none'
+  }, 250)
+}
+
+function resetWidget() {
+  commentSection.style.display = 'none'
+  submitSection.style.display = 'none'
+  commentSection.style.opacity = 0
+  submitSection.style.opacity = 0
+  unsatisfiedInput.checked = false
+  satisfiedInput.checked = false
+  widget.style.maxHeight = 'none'
+  textarea.value = ''
+}
+
+widget.style.bottom = `-${widget.offsetHeight}px`
