@@ -19,7 +19,7 @@ namespace PushLabs\ReallySimpleFeedback;
  * Exit if accessed directly
  */
 if (!defined('ABSPATH')) {
-  exit();
+      exit();
 }
 
 /**
