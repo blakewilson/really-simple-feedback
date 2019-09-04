@@ -1,6 +1,5 @@
 import 'whatwg-fetch'
 
-const ReallySimpleFeedback = () => {
   const feedbackButton = document.createElement('div')
   feedbackButton.id = 'rsf-open-pane'
   feedbackButton.innerHTML = `
@@ -233,16 +232,17 @@ const ReallySimpleFeedback = () => {
       userAgent: navigator.userAgent,
     }
 
-    window.fetch(
-      `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`,
-      {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    window
+      .fetch(
+        `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/feedback`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then(res => res.json())
       .then(res => {
         if (res.code) {
@@ -369,5 +369,4 @@ const ReallySimpleFeedback = () => {
   }
 
   widget.style.bottom = `-${widget.offsetHeight}px`
-}
-ReallySimpleFeedback()
+

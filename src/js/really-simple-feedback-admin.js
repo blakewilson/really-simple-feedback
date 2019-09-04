@@ -9,16 +9,17 @@ const ReallySimpleFeedbackAdmin = () => {
     const row = e.target.closest('.rsf-post')
     const postID = e.target.getAttribute('data-postid')
 
-    window.fetch(
-      `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_read/${postID}`,
-      {
-        method: 'POST',
-        headers: {
-          'X-WP-Nonce': rsf_localized.nonce,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    window
+      .fetch(
+        `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_read/${postID}`,
+        {
+          method: 'POST',
+          headers: {
+            'X-WP-Nonce': rsf_localized.nonce,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then(res => res.json())
       .then(res => {
         row.classList.remove('rsf-post-unread')
@@ -38,16 +39,17 @@ const ReallySimpleFeedbackAdmin = () => {
     const row = e.target.closest('.rsf-post')
     const postID = e.target.getAttribute('data-postid')
 
-    window.fetch(
-      `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_unread/${postID}`,
-      {
-        method: 'POST',
-        headers: {
-          'X-WP-Nonce': rsf_localized.nonce,
-          'Content-Type': 'applications/json',
-        },
-      }
-    )
+    window
+      .fetch(
+        `${rsf_localized.site_url}/wp-json/really-simple-feedback/v1/mark_as_unread/${postID}`,
+        {
+          method: 'POST',
+          headers: {
+            'X-WP-Nonce': rsf_localized.nonce,
+            'Content-Type': 'applications/json',
+          },
+        }
+      )
       .then(res => res.json())
       .then(res => {
         row.classList.add('rsf-post-unread')

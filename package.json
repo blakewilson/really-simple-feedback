@@ -4,22 +4,32 @@
   "description": "A really simple way to get feedback from your users.",
   "main": "really-simple-feedback.php",
   "scripts": {
-    "format": "prettier --write src/**/*.js",
+    "format-js": "prettier --write src/**/*.js",
     "format-php": "prettier --write really-simple-feedback.php",
+    "build": "gulp",
     "export-zip": "git archive -o really-simple-feedback.zip master"
   },
   "author": "Push Labs",
+  "pre-commit": [
+    "format-js",
+    "format-php",
+    "build"
+  ],
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@prettier/plugin-php": "^0.11.2",
     "babel": "^6.23.0",
+    "babel-loader": "^8.0.6",
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^4.0.2",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.18.2",
+    "webpack-stream": "^5.2.1",
     "whatwg-fetch": "^3.0.0"
   }
 }
