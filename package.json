@@ -5,6 +5,7 @@
   "main": "really-simple-feedback.php",
   "scripts": {
     "format-js": "prettier --write src/**/*.js",
+    "format-scss": "prettier --write src/sass/*.scss",
     "format-php": "prettier --write really-simple-feedback.php",
     "build": "gulp",
     "export-zip": "git archive -o really-simple-feedback.zip master"
